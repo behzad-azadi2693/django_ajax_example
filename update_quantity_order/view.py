@@ -12,16 +12,39 @@ def index(request):
     }
     return render(request, 'index.html', context)
 
-def change_qty(request):
+@login_required
+def change_qty_pls(request):
     try:
         pk = request.GET.get('key_qty')
         obj = DataOne.objects.get(pk=pk)
         if request.user == obj.user:
-            obj.qty += 1
-            obj.save()
-            obj_new = obj.qty
-            return HttpResponse(obj_new)
+            if obj.qty < obj.quantity:
+                obj.qty += 1
+                obj.save()
+                obj_new = obj.qty
+                return HttpResponse(obj_new)
+            else:
+                return JsonResponse({"error": "this quantity is not exists"}, status=400)
         else:
-            return Http404()
+            return JsonResponse({"error": "this product is not in your order"}, status=400)
     except:
-        return Http404()
+        return JsonResponse({"error": "this request is not safe"}, status=400)
+
+
+
+def change_qty_mins(request):
+    try:
+        pk = request.GET.get('key_qty')
+        obj = DataOne.objects.get(pk=pk)
+        if request.user == obj.user:
+            if obj.quantity > 0:
+                obj.qty -= 1
+                obj.save()
+                obj_new = obj.qty
+                return HttpResponse(obj_new)
+            else:
+                return JsonResponse({"error": "this quantity is nothing"}, status=400)
+        else:
+            return JsonResponse({"error": "this product is not in your order"}, status=400)
+    except:
+        return JsonResponse({"error": "this request is not safe"}, status=400)

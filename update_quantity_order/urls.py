@@ -1,8 +1,8 @@
 from django.urls import path
-from .view import index, change_qty
+from .view import index, change_qty_pls
 
 
 urlpatterns = [
     path('', index, name="index"),
-    path('change/quantity/', change_qty, name="change_qty"),
+    path('change/quantity/plus/', change_qty_pls, name="change_qty_pls"),
 ]

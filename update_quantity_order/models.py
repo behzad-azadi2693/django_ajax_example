@@ -7,6 +7,7 @@ class DataOne(models.Model):
     name = models.CharField(max_length=100)
     family = models.CharField(max_length=100)
     price = models.IntegerField()
+    quantity=models.IntegerField()
     qty = models.IntegerField(default=1)
 
     def __str__(self):

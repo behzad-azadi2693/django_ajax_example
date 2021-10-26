@@ -8,8 +8,9 @@ $('button[id^="change_pls_"]').click(function(e){
         success: function(response){
             $(qty_id).html(response)
         },
-        error: function(){
-            alert('this is None')
+        
+        error: function(response){
+            alert(response['responseJSON']['error']);
         }
     }
 })

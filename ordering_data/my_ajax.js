@@ -1,4 +1,3 @@
-<script>
         $("#my_aj").click(function(e) {
             $.ajax({
                 type: 'GET',
@@ -28,4 +27,3 @@
 
             });
         });
-    </script>
